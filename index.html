@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taschenrechner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <script>
+        function appendOperation(operation) { //Funktion (Block von Befehlen) mit dem Namen "appendOperation"
+            var resultArea = document.getElementById("result-area");
+            resultArea.innerHTML += operation; //die Funktion holt sich eine ID und bearbeitet den HTML-Text
+        }
+        function toThePowerOf(operation) {
+            var resultArea = document.getElementById("result-area");
+            resultArea.innerHTML += operation;
+        }
+        function calculateResult() {
+            var container = document.getElementById("result-area"); //result-area wird in einen container gespeichert
+            var result = eval(container.innerHTML); //evaluate = berechnen; berechnet die Rechnung und speichert es in der Variable "result"
+            container.innerHTML = result; //Die Variable "result" wird wieder in den Conatiner rein geschrieben
+        }
+        function deleteLast() {
+            var container = document.getElementById("result-area");
+            if (container.innerHTML == "Infinity") {
+                container.innerHTML = container.innerHTML.slice(0, -8);
+            } else {
+                container.innerHTML = container.innerHTML.slice(0, -1); //slice löscht das letzte Element
+            }
+        }
+        function deleteAll() {
+            var container = document.getElementById("result-area");
+            container.innerHTML = container.innerHTML.slice(0, -1000000000000000); //löscht die letzten 1000000000000000 Elemente (alle)
+        }
+        function squaredOf() {
+            var container = document.getElementById("result-area");
+            var result = eval(container.innerHTML);
+            container.innerHTML = result ** 2;
+        }
+    </script>
+</head>
+<body>
+    <div id="result-area"></div>
+    <table id="table">
+        <tr>
+            <td class="td"></td>
+            <td class="td" onclick="toThePowerOf('**')">^</td>
+            <td class="td" onclick="appendOperation('(')">(</td>
+            <td class="td" onclick="appendOperation(')')">)</td>
+        </tr>
+        <tr>
+            <td class="td">π</td>
+            <td class="td" onclick="squaredOf()">x²</td>
+            <td class="td" onclick="deleteAll()">C</td>
+            <td class="td" onclick="deleteLast()">DEL</td>
+        </tr>
+        <tr>
+            <td class="number" class="td" onclick="appendOperation(7)">7</td> <!--Bei einem Klick (onclick) wird 7 zu result-area hinzugefügt-->
+            <td class="number" class="td" onclick="appendOperation(8)">8</td>
+            <td class="number" class="td" onclick="appendOperation(9)">9</td>
+            <td class="td" onclick="appendOperation('/')">÷</td>
+        </tr>
+        <tr>
+            <td class="number" class="td" onclick="appendOperation(4)">4</td>
+            <td class="number" class="td" onclick="appendOperation(5)">5</td>
+            <td class="number" class="td" onclick="appendOperation(6)">6</td>
+            <td class="td" onclick="appendOperation('*')">x</td>
+        </tr>
+        <tr>
+            <td class="number" class="td" onclick="appendOperation(1)">1</td>
+            <td class="number" class="td" onclick="appendOperation(2)">2</td>
+            <td class="number" class="td" onclick="appendOperation(3)">3</td>
+            <td class="td" onclick="appendOperation('-')">-</td>
+        </tr>
+        <tr>
+            <td class="td" onclick="appendOperation('.')">,</td>
+            <td class="td" onclick="appendOperation(0)">0</td>
+            <td class="td" id="result" onclick="calculateResult()">=</td> <!--Führt die Funktion calculateResult() aus-->
+            <td class="td" onclick="appendOperation('+')">+</td>
+        </tr>
+    </table>
+</body>
+</html>
