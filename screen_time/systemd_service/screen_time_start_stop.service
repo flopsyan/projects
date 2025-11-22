@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts and Stops the screen time tool
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/home/flopsyan/Projects/screen_time/01_total_screen_time/hooks/login_time_script.sh
+ExecStop=/home/flopsyan/Projects/screen_time/01_total_screen_time/hooks/logout_time_script.sh
+
+[Install]
+WantedBy=multi-user.target
