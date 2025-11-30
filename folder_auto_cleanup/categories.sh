@@ -35,6 +35,19 @@ EXT_MAP_CAT_LOGS="Logs"
 EXT_MAP_CAT_BACKUPS="Backups"
 
 
+# skip list (for folders)
+declare -A SKIP=()
+
+SKIP["Folders"]=1 # creates the key "folders" in the Associative Array "SKIP"
+SKIP["Other"]=1
+
+while IFS= read -r varname; # reads a row and saves it in varname; IFS= (empty) prevents splitting on spaces
+do
+  SKIP["${!varname}"]=1 # takes the contents of varname and gets its value
+done < <(compgen -v EXT_MAP_CAT_)
+
+
+# file extensions
 declare -A EXT_MAP=(
   # Images
   [jpg]="$EXT_MAP_CAT_IMAGES"
@@ -128,14 +141,6 @@ declare -A EXT_MAP=(
   [tbz2]="$EXT_MAP_CAT_ARCHIVES"
   [txz]="$EXT_MAP_CAT_ARCHIVES"
   [tzst]="$EXT_MAP_CAT_ARCHIVES"
-
-  # Compressed Archives
-  ["tar.gz"]="$EXT_MAP_CAT_ARCHIVES"
-  ["tar.bz2"]="$EXT_MAP_CAT_ARCHIVES"
-  ["tar.xz"]="$EXT_MAP_CAT_ARCHIVES"
-  ["tar.zst"]="$EXT_MAP_CAT_ARCHIVES"
-  ["tar.lz"]="$EXT_MAP_CAT_ARCHIVES"
-  ["tar.lz4"]="$EXT_MAP_CAT_ARCHIVES"
 
   # Disk Images / VM images
   [iso]="$EXT_MAP_CAT_DISKIMAGES"

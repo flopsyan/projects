@@ -20,44 +20,42 @@ fi
 # sorts the files
 if [ -d "$1" ] # check if folder exists
 then
-    for i in "$1"/*
-    do
-        # doesn't sort folders, just files
-        [ -f "$i" ] || continue
+    # removes the trailing "/"
+    target_dir=${1%/}
 
-        # checks if file is writable
-        if [ -w "$i" ]
+    for i in "$target_dir"/*
+    do
+        if [ -f "$i" ]
         then
-            echo "Your file is writable"
+            if [ -w "$i" ] # checks if file is writable
+            then
+                "Do nothing for $i"
+            else
+                echo "The folder \""$(basename -- "$i")"\" is not writable." # outputs the foldername without the full path
+            fi
         else
-            echo "The file \""$(basename -- "$i")"\" is not writable." # outputs the filename without the path
+            if [ -w "$i" ] # checks if file is writable
+            then
+                filename_extension=${i##*.} # extracts the filename extension
+                filename_extension="${filename_extension,,}" # converts the filename extention to lowercase letters
+
+                # checks if filename extension is in the associative array (checks if variable is defined)
+                if [[ -v "EXT_MAP[$filename_extension]" ]]
+                then
+                    dest_dir="$target_dir/${EXT_MAP[$filename_extension]}"
+                else
+                    dest_dir="$target_dir/Other"
+                fi
+
+                # creates the folder and moves the file
+                mkdir -p -- "$dest_dir"
+                mv -- "$i" "$dest_dir/"
+            else
+                echo "The file \""$(basename -- "$i")"\" is not writable." # outputs the filename without the full path
+            fi
         fi
     done
 else
     echo "Please enter a valid PATH (avoid using ~ or \$HOME)"
     exit 2
 fi
-
-
-
-
-
-
-
-
-
-
-# check category for extension
-# for i in 
-
-
-# read file_type
-# file_type="${file_type,,}" # converts all letters to lowercase
-# echo "${EXT_MAP[$file_type]}"
-
-
-#ext="png"
-#category="${EXT_MAP[$ext]:-Other}"
-#echo "$category"
-
-#echo ${EXT_MAP[qcow2]}
