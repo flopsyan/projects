@@ -12,7 +12,7 @@ EXT_MAP_CAT_SPREADSHEETS="Spreadsheets"
 EXT_MAP_CAT_PRESENTATIONS="Presentations"
 EXT_MAP_CAT_EBOOKS="eBooks"
 EXT_MAP_CAT_ARCHIVES="Archives"
-EXT_MAP_CAT_DISKIMAGES="Disk Images / VM images"
+EXT_MAP_CAT_DISKIMAGES="Disk Images"
 EXT_MAP_CAT_INSTALLERS="Installers"
 EXT_MAP_CAT_EXECUTABLES="Executables"
 EXT_MAP_CAT_SCRIPTS="Scripts"
@@ -41,10 +41,10 @@ declare -A SKIP=()
 SKIP["Folders"]=1 # creates the key "folders" in the Associative Array "SKIP"
 SKIP["Other"]=1
 
-while IFS= read -r varname; # reads a row and saves it in varname; IFS= (empty) prevents splitting on spaces
+while IFS= read -r varname # reads a row and saves it in varname; IFS= (empty) prevents splitting on spaces
 do
   SKIP["${!varname}"]=1 # takes the contents of varname and gets its value
-done < <(compgen -v EXT_MAP_CAT_)
+done < <(compgen -v EXT_MAP_CAT_) # determines where the loop gets its rows - lists alle variable names that start with "EXT_MAP_CAT_" - gets handed to the while loop
 
 
 # file extensions

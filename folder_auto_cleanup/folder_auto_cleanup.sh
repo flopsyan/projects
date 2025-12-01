@@ -25,11 +25,19 @@ then
 
     for i in "$target_dir"/*
     do
-        if [ -f "$i" ]
+        if [ -d "$i" ] # checks if $i is a directory
         then
-            if [ -w "$i" ] # checks if file is writable
+            if [ -w "$i" ] # checks if folder is writable
             then
-                "Do nothing for $i"
+                basename_i="${i##*/}" # basename of $i
+
+                if [[ -v SKIP["$basename_i"] ]] # don't move folders that were created by this script (Images, PDF, Audio, ...)
+                then
+                    continue
+                else
+                    mkdir -p -- "$target_dir/Folders"
+                    mv -- "$i" "$target_dir/Folders/"
+                fi
             else
                 echo "The folder \""$(basename -- "$i")"\" is not writable." # outputs the foldername without the full path
             fi
@@ -51,7 +59,7 @@ then
                 mkdir -p -- "$dest_dir"
                 mv -- "$i" "$dest_dir/"
             else
-                echo "The file \""$(basename -- "$i")"\" is not writable." # outputs the filename without the full path
+                echo "The file \""$(basename -- "$i")"\" is not writable and could not be sorted." # outputs the filename without the full path
             fi
         fi
     done
