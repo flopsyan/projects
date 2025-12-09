@@ -1,2 +1,2 @@
-# Dotfiles
+# Projects
    Some simple projects
