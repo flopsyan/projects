@@ -36,13 +36,3 @@ do
         ((counter++)) # increases the counter by 1
     fi
 done
-
-
-
-
-
-# timestamp=$(exiv2 -g Exif.Photo.DateTimeOriginal -Pv "/home/flopsyan/Desktop/Bilder/80D - TEST/F1023774.jpg") # searches for the exif metadata tag (-g Exif.Photo.DateTimeOriginal) and prints only the value (-Pv "path")
-# timestamp=${timestamp:11:5} # contains five chars (from the 11th on, so only the time)
-# timestamp=${timestamp/:/} # removes the colon
-
-# echo "$timestamp"
