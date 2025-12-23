@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 current_user_path=$(pwd)
-echo "Enter the absolute path where your photos are located... (Press enter to use $current_user_path)"
+echo "Enter the absolute path where your photos are located... (Default is $current_user_path)"
 read user_path
 echo "Please enter the Prefix"
 read user_prefix
