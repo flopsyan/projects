@@ -1,4 +1,4 @@
-A better fastfetch.
+A better fastfetch/neofetch.
 
 WIP - not usable yet
 
